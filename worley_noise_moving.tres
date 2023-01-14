@@ -1,0 +1,39 @@
+[gd_resource type="Shader" format=3 uid="uid://cdsql4rlb1644"]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform int n;
+uniform sampler2D simplex;
+uniform sampler2D simplex2;
+
+float random (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(12.9898,78.233))) * 43758.5453123);
+}
+float random2 (vec2 uv) {
+    return fract(sin(dot(uv.xy,
+        vec2(39.9874,98.534))) * 96732.0684738);
+}
+
+
+void fragment() {
+    float d = 9999999999.0;
+    for(int i=0; i<n; i++) {
+        vec2 seed = vec2(float(i), 0);
+        vec2 point = vec2(random(seed), random2(seed));
+        vec4 t = texture(simplex, UV+TIME*0.1);
+        vec4 t2 = texture(simplex2, UV+TIME*0.1);
+        float offset = t.r;
+        float offset2 = t.r;
+        vec2 point_offset = vec2(offset, offset2);
+        point = point + 0.1 * point_offset;
+        d = min(d, distance(UV, point));
+    }
+    
+    d = clamp(d, 0, 0.1);
+    d *= 10.0;
+    
+    COLOR = vec4(d, d, d, 1);
+}
+"
