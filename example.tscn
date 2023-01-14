@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhw1iogaadu5o"]
+[gd_scene load_steps=4 format=3 uid="uid://dhw1iogaadu5o"]
 
-[ext_resource type="Shader" path="res://vorley_noise.gdshader" id="1_fb03d"]
+[ext_resource type="Shader" path="res://voronoi_tesselation.gdshader" id="1_y7uxh"]
+[ext_resource type="Script" path="res://FPS.gd" id="2_o380g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_05buj"]
-shader = ExtResource("1_fb03d")
+shader = ExtResource("1_y7uxh")
+shader_parameter/n = 500
 
 [node name="Example" type="Control"]
 layout_mode = 3
@@ -21,3 +23,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="FPS" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_o380g")
